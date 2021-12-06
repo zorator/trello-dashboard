@@ -1,0 +1,12 @@
+.Organization{
+    border-radius: 5px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.Organization > h2 {
+    padding: 8px;
+    background-color: #b2b3b6;
+    margin-bottom: 0;
+}
