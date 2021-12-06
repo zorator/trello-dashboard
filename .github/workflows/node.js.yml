@@ -19,4 +19,6 @@ jobs:
         node-version: 16
         cache: 'npm'
     - run: npm ci
+    - run: git config --global user.email "you@example.com"
+    - run: git config --global user.name "Vivien AUGUY"
     - run: npm run deploy --if-present

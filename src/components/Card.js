@@ -11,12 +11,10 @@ function Card({data}) {
             let table = []
             for (let idMember of data.idMembers) {
                 const member = await TrelloApi.getMember(idMember)
-                console.log(member)
                 table.push(member)
             }
             setMembers(table)
         }
-
         fetchMembers();
     }, [data.idMembers])
 

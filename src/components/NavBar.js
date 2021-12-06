@@ -35,7 +35,7 @@ function NavBar({organizations, onFilterChange}) {
                 // remove organization without boards
             })).filter(orga => orga.boards.length > 0)
         )
-    }, [filter, organizations])
+    }, [onFilterChange, filter, organizations])
 
     return <>
         <Button type="primary" onClick={() => setVisible(!visible)}>

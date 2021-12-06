@@ -3,7 +3,8 @@ import TrelloApi from './services/trello-api'
 import {Organization} from "./components/Organization";
 import {Anchor, Layout} from "antd";
 import NavBar from "./components/NavBar";
-
+import TrelloClient from "react-trello-client";
+import Config from './config'
 
 const renderLinks = (element) => <Anchor.Link key={element.id} href={`#${element.id}`}
                                               style={{whiteSpace: 'normal'}}
@@ -23,6 +24,18 @@ function App() {
     return (
         <Layout>
             <Layout.Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>>
+                <TrelloClient
+                    apiKey={Config.api_key}
+                    clientVersion={1}
+                    apiEndpoint="https://api.trello.com"
+                    authEndpoint="https://trello.com"
+                    intentEndpoint="https://trello.com"
+                    authorizeName="Trello Dashboard"
+                    authorizeType="redirect"
+                    authorizeOnSuccess={() => console.log('Login successful!')}
+                    authorizeOnError={() => console.log('Login error!')}
+                    autoAuthorize={true}
+                />
                 <NavBar organizations={organizations} onFilterChange={setFilteredOrganizations}/>
             </Layout.Header>
             <Layout style={{marginTop: 64}}>
