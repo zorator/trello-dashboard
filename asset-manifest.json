@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/zorator/trello-dashboard/static/css/main.58241640.chunk.css",
+    "main.js": "/zorator/trello-dashboard/static/js/main.1814032a.chunk.js",
+    "main.js.map": "/zorator/trello-dashboard/static/js/main.1814032a.chunk.js.map",
+    "runtime-main.js": "/zorator/trello-dashboard/static/js/runtime-main.84d7898d.js",
+    "runtime-main.js.map": "/zorator/trello-dashboard/static/js/runtime-main.84d7898d.js.map",
+    "static/css/2.dd81567a.chunk.css": "/zorator/trello-dashboard/static/css/2.dd81567a.chunk.css",
+    "static/js/2.5fe18426.chunk.js": "/zorator/trello-dashboard/static/js/2.5fe18426.chunk.js",
+    "static/js/2.5fe18426.chunk.js.map": "/zorator/trello-dashboard/static/js/2.5fe18426.chunk.js.map",
+    "index.html": "/zorator/trello-dashboard/index.html",
+    "static/css/2.dd81567a.chunk.css.map": "/zorator/trello-dashboard/static/css/2.dd81567a.chunk.css.map",
+    "static/css/main.58241640.chunk.css.map": "/zorator/trello-dashboard/static/css/main.58241640.chunk.css.map",
+    "static/js/2.5fe18426.chunk.js.LICENSE.txt": "/zorator/trello-dashboard/static/js/2.5fe18426.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.84d7898d.js",
+    "static/css/2.dd81567a.chunk.css",
+    "static/js/2.5fe18426.chunk.js",
+    "static/css/main.58241640.chunk.css",
+    "static/js/main.1814032a.chunk.js"
+  ]
+}
