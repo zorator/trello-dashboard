@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/trello-dashboard/static/css/main.6b125bd7.chunk.css",
-    "main.js": "/trello-dashboard/static/js/main.43b5ff84.chunk.js",
-    "main.js.map": "/trello-dashboard/static/js/main.43b5ff84.chunk.js.map",
+    "main.css": "/trello-dashboard/static/css/main.b934b923.chunk.css",
+    "main.js": "/trello-dashboard/static/js/main.3879771c.chunk.js",
+    "main.js.map": "/trello-dashboard/static/js/main.3879771c.chunk.js.map",
     "runtime-main.js": "/trello-dashboard/static/js/runtime-main.4c100ffe.js",
     "runtime-main.js.map": "/trello-dashboard/static/js/runtime-main.4c100ffe.js.map",
     "static/css/2.dd81567a.chunk.css": "/trello-dashboard/static/css/2.dd81567a.chunk.css",
-    "static/js/2.dad7361d.chunk.js": "/trello-dashboard/static/js/2.dad7361d.chunk.js",
-    "static/js/2.dad7361d.chunk.js.map": "/trello-dashboard/static/js/2.dad7361d.chunk.js.map",
+    "static/js/2.af7b304d.chunk.js": "/trello-dashboard/static/js/2.af7b304d.chunk.js",
+    "static/js/2.af7b304d.chunk.js.map": "/trello-dashboard/static/js/2.af7b304d.chunk.js.map",
     "index.html": "/trello-dashboard/index.html",
     "static/css/2.dd81567a.chunk.css.map": "/trello-dashboard/static/css/2.dd81567a.chunk.css.map",
-    "static/css/main.6b125bd7.chunk.css.map": "/trello-dashboard/static/css/main.6b125bd7.chunk.css.map",
-    "static/js/2.dad7361d.chunk.js.LICENSE.txt": "/trello-dashboard/static/js/2.dad7361d.chunk.js.LICENSE.txt"
+    "static/css/main.b934b923.chunk.css.map": "/trello-dashboard/static/css/main.b934b923.chunk.css.map",
+    "static/js/2.af7b304d.chunk.js.LICENSE.txt": "/trello-dashboard/static/js/2.af7b304d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4c100ffe.js",
     "static/css/2.dd81567a.chunk.css",
-    "static/js/2.dad7361d.chunk.js",
-    "static/css/main.6b125bd7.chunk.css",
-    "static/js/main.43b5ff84.chunk.js"
+    "static/js/2.af7b304d.chunk.js",
+    "static/css/main.b934b923.chunk.css",
+    "static/js/main.3879771c.chunk.js"
   ]
 }
