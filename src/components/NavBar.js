@@ -10,13 +10,13 @@ function NavBar({organizations, onFilterChange}) {
 
     useEffect(() => {
         setTreeData(organizations.map(orga => ({
-            title: orga.displayName,
+            title: <><span className="badge-icon icon-sm icon-organization"/> {orga.displayName}</>,
             key: orga.id,
             children: orga.boards.map(board => ({
-                title: board.name,
+                title: <><span className="badge-icon icon-sm icon-board"/> {board.name}</>,
                 key: board.id,
                 children: board.lists.map(list => ({
-                    title: list.name,
+                    title: <><span className="badge-icon icon-sm icon-list"/> {list.name}</>,
                     key: list.id
                 }))
             }))

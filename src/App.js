@@ -1,16 +1,11 @@
 import {useEffect, useState} from "react";
 import TrelloApi from './services/trello-api'
 import {Organization} from "./components/Organization";
-import {Anchor, Layout} from "antd";
+import {Layout} from "antd";
 import NavBar from "./components/NavBar";
 import TrelloClient from "react-trello-client";
 import Config from './config'
-
-const renderLinks = (element) => <Anchor.Link key={element.id} href={`#${element.id}`}
-                                              style={{whiteSpace: 'normal'}}
-                                              title={element.displayName || element.name}>
-    {(element.boards || element.lists || []).map(renderLinks)}
-</Anchor.Link>
+import Anchors from "./components/Anchors";
 
 function App() {
 
@@ -23,7 +18,7 @@ function App() {
 
     return (
         <Layout>
-            <Layout.Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>>
+            <Layout.Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>
                 <TrelloClient
                     apiKey={Config.api_key}
                     clientVersion={1}
@@ -40,9 +35,7 @@ function App() {
             </Layout.Header>
             <Layout style={{marginTop: 64}}>
                 <Layout.Sider style={{padding: 8, background: '#fff'}}>
-                    <Anchor offsetTop={72}>
-                        {filteredOrganization.map(renderLinks)}
-                    </Anchor>
+                    <Anchors organizations={filteredOrganization}/>
                 </Layout.Sider>
                 <Layout style={{padding: 8}}>
                     <Layout.Content className="body-card-label-text">

@@ -2,7 +2,8 @@
     border-radius: 5px;
     margin-bottom: 16px;
     overflow: hidden;
-    background-color: #fff;
+    background-color: #ebecf0;
+    border: solid 1px #b2b3b6;
 }
 
 .Organization > h2 {

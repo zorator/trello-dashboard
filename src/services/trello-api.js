@@ -33,8 +33,6 @@ const getMyCards = () => {
 const getMyBoards = () => callApi('members/me/boards', {lists: 'open'})
 
 const getMyOrganizations = () => callApi('members/me/organizations')
-const getMyCardsByList = (idList) => getMyCards()
-    .then(cards => cards.filter(card => card.idList === idList));
 
 const getHierarchy = () => {
     return Promise.all([
@@ -60,8 +58,6 @@ const getHierarchy = () => {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    getMyCards,
-    getMyCardsByList,
     getHierarchy,
     getMember
 }

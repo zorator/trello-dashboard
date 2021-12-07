@@ -2,7 +2,8 @@ import styles from './Card.module.css'
 import TrelloApi from "../services/trello-api";
 import {useEffect, useState} from "react";
 
-function Card({data}) {
+
+function Card({data, list}) {
 
     const [members, setMembers] = useState([])
 
@@ -30,14 +31,14 @@ function Card({data}) {
                 </span>)}
                 </div>
                 <span className="list-card-title" dir="auto">{data.name}</span>
-                <div className="badges">
+                {/*<div className="badges">
                     <span className="js-badges">
                         <div className="badge js-checkitems-badge" title="Éléments de checklist">
                         <span className="badge-icon icon-sm icon-checklist"/>
                         <span className="badge-text js-checkitems-badge-text">0/3</span>
                     </div>
                     </span>
-                </div>
+                </div>*/}
                 <div className="list-card-members">
                     {members.map(member => <div key={member.id} className="member">
                             {member.avatarUrl ? <img
@@ -52,6 +53,9 @@ function Card({data}) {
                         </div>
                     )}
                 </div>
+                {list ? <div className={styles.CardListName}>
+                    <span className="badge-icon icon-sm icon-list"/> {list.name}
+                </div> : null}
             </div>
         </a>
     );
