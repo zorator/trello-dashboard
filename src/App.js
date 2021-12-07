@@ -1,46 +1,37 @@
 import {useEffect, useState} from "react";
 import TrelloApi from './services/trello-api'
-import {Organization} from "./components/Organization";
-import {Layout} from "antd";
+import {Layout, Skeleton} from "antd";
 import NavBar from "./components/NavBar";
-import TrelloClient from "react-trello-client";
-import Config from './config'
 import Anchors from "./components/Anchors";
+import Organizations from "./components/Organizations";
 
 function App() {
 
+    const [loading, setLoading] = useState(true)
     const [organizations, setOrganization] = useState([])
     const [filteredOrganization, setFilteredOrganizations] = useState([])
 
     useEffect(() => {
-        TrelloApi.getHierarchy().then(setOrganization)
+        TrelloApi.getHierarchy().then(list => {
+            setOrganization(list)
+            setLoading(false)
+        })
     }, [])
 
     return (
         <Layout>
             <Layout.Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>
-                <TrelloClient
-                    apiKey={Config.api_key}
-                    clientVersion={1}
-                    apiEndpoint="https://api.trello.com"
-                    authEndpoint="https://trello.com"
-                    intentEndpoint="https://trello.com"
-                    authorizeName="Trello Dashboard"
-                    authorizeType="redirect"
-                    authorizeOnSuccess={() => console.log('Login successful!')}
-                    authorizeOnError={() => console.log('Login error!')}
-                    autoAuthorize={true}
-                />
                 <NavBar organizations={organizations} onFilterChange={setFilteredOrganizations}/>
             </Layout.Header>
-            <Layout style={{marginTop: 64}}>
+            <Layout style={{marginTop: 64, minHeight: 'calc(100vh - 64px)'}}>
                 <Layout.Sider style={{padding: 8, background: '#fff'}}>
                     <Anchors organizations={filteredOrganization}/>
                 </Layout.Sider>
-                <Layout style={{padding: 8}}>
-                    <Layout.Content className="body-card-label-text">
-                        {filteredOrganization.map((organization) => <Organization key={organization.id}
-                                                                                  data={organization}/>)}
+                <Layout>
+                    <Layout.Content className="body-card-label-text" style={{padding: 8}}>
+                        <Skeleton active loading={loading}>
+                            <Organizations organizations={filteredOrganization} loading={loading}/>
+                        </Skeleton>
                     </Layout.Content>
                     <Layout.Footer>
                         Made with 🍺 by <a href="https://github.com/zorator/trello-dashboard">@zorator</a>

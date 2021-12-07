@@ -3,7 +3,7 @@ import TrelloApi from "../services/trello-api";
 import {useEffect, useState} from "react";
 
 
-function Card({data, list}) {
+function Card({data, list, isFirst}) {
 
     const [members, setMembers] = useState([])
 
@@ -16,13 +16,14 @@ function Card({data, list}) {
             }
             setMembers(table)
         }
+
         fetchMembers();
     }, [data.idMembers])
 
     const labels = data.labels || []
     return (
         <a className={[styles.Card, "list-card"].join(' ')} href={data.url} target="_blank" rel="noreferrer">
-            <div className="list-card-details">
+            <div className="list-card-details" id={isFirst ? list.id : null}>
                 <div className="list-card-labels">
                     {labels.map(label => <span key={label.id}
                                                className={`card-label card-label-${label.color} mod-card-front`}

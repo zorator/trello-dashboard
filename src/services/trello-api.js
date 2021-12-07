@@ -14,7 +14,6 @@ const callApi = (url, params) => {
     }).then(res => res.json());
 }
 
-let cardsPromise = undefined
 let memberPromiseMap = {}
 
 const getMember = (id) => {
@@ -23,37 +22,49 @@ const getMember = (id) => {
     }
     return memberPromiseMap[id]
 }
-const getMyCards = () => {
-    if (cardsPromise === undefined) {
-        cardsPromise = callApi('members/me/cards')
-    }
-    return cardsPromise
-}
+const _getMyCards = () => callApi('members/me/cards')
+const _getMyBoards = () => callApi('members/me/boards', {lists: 'open'})
+const _getMyOrganizations = () => callApi('members/me/organizations')
 
-const getMyBoards = () => callApi('members/me/boards', {lists: 'open'})
+const _groupByKey = (datas, key, mapper = a => a) => datas.reduce((result, data) => {
+    let value = data[key]
+    result[value] = [...result[value] || [], mapper(data)];
+    return result;
+}, {})
 
-const getMyOrganizations = () => callApi('members/me/organizations')
+const getHierarchy = async () => {
+    // fetch all data from user
+    const organizations = await _getMyOrganizations()
+    const boards = await _getMyBoards()
+    const cards = await _getMyCards()
 
-const getHierarchy = () => {
-    return Promise.all([
-        getMyOrganizations(), getMyBoards(), getMyCards()
-    ]).then(([organizations, boards, cards]) => {
-        const cardsByList = cards.reduce((result, card) => {
-            result[card.idList] = [...result[card.idList] || [], card];
-            return result;
-        }, {})
-        const boardsByOrganization = boards.reduce((result, board) => {
-            board.lists.forEach(list => {
-                list.cards = cardsByList[list.id] || []
-            })
-            result[board.idOrganization] = [...result[board.idOrganization] || [], board];
-            return result;
-        }, {})
-        return organizations.map(org => {
-            org.boards = boardsByOrganization[org.id] || []
-            return org
+    // inject all cards into lists
+    const cardsByList = _groupByKey(cards, 'idList')
+    const completeBoards = boards.map(board => {
+        board.lists.forEach(list => {
+            list.cards = cardsByList[list.id] || []
         })
+        return board
     })
+    // Build board map by organization id
+    let boardsByOrganization = _groupByKey(completeBoards, 'idOrganization')
+    // Inject all boards into organization
+    let allOrganizations = organizations.map(orga => {
+        orga.boards = boardsByOrganization[orga.id] || []
+        // remove boards from map in order to leave 'orphan' boards
+        delete boardsByOrganization[orga.id]
+        return orga
+    })
+    // Add boards were user is member, but not member's of the organization
+    let leftBoards = Array.prototype.concat.apply([], Object.values(boardsByOrganization))
+    if (leftBoards.length > 0) {
+        allOrganizations.push({
+            id: 'private',
+            displayName: 'Private Organization',
+            boards: leftBoards
+        })
+    }
+    return allOrganizations
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -1,4 +1,4 @@
-import {Board} from "./Board";
+import Board from "./Board";
 import styles from './Organization.module.css'
 
 export function Organization({data}) {
