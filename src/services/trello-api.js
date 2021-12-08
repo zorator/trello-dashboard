@@ -23,8 +23,8 @@ const getMember = (id) => {
     return memberPromiseMap[id]
 }
 const _getMyCards = () => callApi('members/me/cards')
-const _getMyBoards = () => callApi('members/me/boards', {lists: 'open'})
-const _getMyOrganizations = () => callApi('members/me/organizations')
+// return user boards with lists data and organization data
+const _getMyBoards = () => callApi('members/me/boards', {lists: 'open', organization: true})
 
 const _groupByKey = (datas, key, mapper = a => a) => datas.reduce((result, data) => {
     let value = data[key]
@@ -34,7 +34,6 @@ const _groupByKey = (datas, key, mapper = a => a) => datas.reduce((result, data)
 
 const getHierarchy = async () => {
     // fetch all data from user
-    const organizations = await _getMyOrganizations()
     const boards = await _getMyBoards()
     const cards = await _getMyCards()
 
@@ -49,22 +48,29 @@ const getHierarchy = async () => {
     // Build board map by organization id
     let boardsByOrganization = _groupByKey(completeBoards, 'idOrganization')
     // Inject all boards into organization
-    let allOrganizations = organizations.map(orga => {
-        orga.boards = boardsByOrganization[orga.id] || []
-        // remove boards from map in order to leave 'orphan' boards
-        delete boardsByOrganization[orga.id]
-        return orga
-    })
+    let organizations = Object.keys(boardsByOrganization).reduce((total, orgaId) => {
+        let orga = boardsByOrganization[orgaId][0].organization
+        if (orga) {
+            // if organization is not private, field is defined
+            total.push({
+                ...orga, boards: boardsByOrganization[orgaId]
+            })
+            // delete entry in map so we can handle boards with private organization
+            delete boardsByOrganization[orga.id]
+        }
+        return total
+    }, [])
+
     // Add boards were user is member, but not member's of the organization
     let leftBoards = Array.prototype.concat.apply([], Object.values(boardsByOrganization))
     if (leftBoards.length > 0) {
-        allOrganizations.push({
+        organizations.push({
             id: 'private',
             displayName: 'Private Organization',
             boards: leftBoards
         })
     }
-    return allOrganizations
+    return organizations
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
