@@ -1,6 +1,7 @@
 .Card {
     margin-bottom: 8px;
     margin-right: 8px;
+    width: 300px;
 }
 
 .CardListName {
