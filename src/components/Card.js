@@ -2,25 +2,22 @@ import styles from './Card.module.css'
 import TrelloApi from "../services/trello-api";
 import {useEffect, useState} from "react";
 
+const labelOrder = ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'pink', 'sky', 'lime', 'black']
+const labelSorter = labels => {
+    let result = labels || []
+    result.sort((a, b) => labelOrder.indexOf(a.color) - labelOrder.indexOf(b.color))
+    return result
+}
 
 function Card({data, list, isFirst}) {
 
     const [members, setMembers] = useState([])
 
     useEffect(() => {
-        async function fetchMembers() {
-            let table = []
-            for (let idMember of data.idMembers) {
-                const member = await TrelloApi.getMember(idMember)
-                table.push(member)
-            }
-            setMembers(table)
-        }
-
-        fetchMembers();
+        Promise.all(data.idMembers.map(TrelloApi.getMember)).then(setMembers)
     }, [data.idMembers])
 
-    const labels = data.labels || []
+    const labels = labelSorter(data.labels)
     return (
         <a className={[styles.Card, "list-card"].join(' ')} href={data.url} target="_blank" rel="noreferrer">
             <div className="list-card-details" id={isFirst ? list.id : null}>
